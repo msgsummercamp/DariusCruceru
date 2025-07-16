@@ -8,6 +8,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Enviorment " + System.getProperty("env"));
+        System.out.println( "Enviornment " + System.getProperty("env"));
     }
 }
