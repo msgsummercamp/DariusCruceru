@@ -1,0 +1,23 @@
+# Maven target directories
+target/
+*/target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Eclipse
+.project
+.classpath
+.settings/
