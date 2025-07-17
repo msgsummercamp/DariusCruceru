@@ -51,4 +51,8 @@ public class UserRepositoryImpl implements UserRepository {
                 .orElse(null);
 
     }
+
+    public void clear() {
+        users.clear();
+    }
 }

@@ -10,4 +10,5 @@ public interface UserRepository {
     void deleteById(Long id);
     void update(User user);
     User findById(Long id);
+    void clear();
 }
