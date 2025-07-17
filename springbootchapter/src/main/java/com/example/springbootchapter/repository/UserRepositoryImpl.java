@@ -2,7 +2,6 @@ package com.example.springbootchapter.repository;
 
 import com.example.springbootchapter.model.User;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +18,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> findAll() {
-       return Collections.unmodifiableList(users);
+        return Collections.unmodifiableList(users);
     }
 
     @Override
@@ -29,7 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteById(Long id) {
-        users.removeIf(user ->user.getId().equals(id));
+        users.removeIf(user -> user.getId().equals(id));
     }
 
     @Override

@@ -10,10 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -35,7 +33,6 @@ class UserControllerIntegrationTest {
 
     @BeforeEach
     void setup() {
-        // Clear the repository before each test
         userRepository.clear();
         userRepository.save(new User(1L, "Alice"));
         userRepository.save(new User(2L, "Bob"));
@@ -66,13 +63,13 @@ class UserControllerIntegrationTest {
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newUser)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
+
 
         mockMvc.perform(get("/users/3"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Charlie"));
     }
-
 
 
     @Test
@@ -91,9 +88,9 @@ class UserControllerIntegrationTest {
 
 
     @Test
-    void shouldDeleteUser() throws Exception{
+    void shouldDeleteUser() throws Exception {
         mockMvc.perform(delete("/users/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         mockMvc.perform(get("/users/1"))
                 .andExpect(status().isNotFound());
