@@ -1,5 +1,3 @@
-// src/main/java/org/example/config/AppConfig.java
-
 package org.example.config;
 
 import org.springframework.context.annotation.ComponentScan;
