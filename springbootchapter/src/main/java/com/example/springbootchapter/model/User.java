@@ -1,3 +1,13 @@
 package com.example.springbootchapter.model;
 
-public record User(long id, String name) {}
+public record User(Long id, String name) {
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+}
