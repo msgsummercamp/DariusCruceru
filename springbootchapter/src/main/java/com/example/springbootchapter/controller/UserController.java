@@ -2,7 +2,6 @@ package com.example.springbootchapter.controller;
 
 import com.example.springbootchapter.model.User;
 import com.example.springbootchapter.service.UserService;
-import com.example.springbootchapter.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -12,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
-import static org.springframework.http.ResponseEntity.ok;
 
 
 @Validated
@@ -24,7 +20,7 @@ import static org.springframework.http.ResponseEntity.ok;
 public class UserController {
     private final UserService userService;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     public UserController(UserService userService) {
@@ -40,7 +36,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<String> addUser(@RequestBody @Valid User user) {
         logger.info("Adding user: {}", user);
-        userService.addUser(user);
+        userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
     }
 
@@ -52,11 +48,14 @@ public class UserController {
 
     }
 
-    @PutMapping
-    public ResponseEntity<String> updateUser(@RequestBody @Valid User user) {
-        logger.info("Updating user: {}", user);
-        userService.updateUser(user);
-        return ResponseEntity.ok("User updated successfully");
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(
+            @PathVariable Long id,
+            @RequestBody @Valid User userDetails) {
+
+        logger.info("Updating user with id {}: {}", id, userDetails);
+        User updatedUser = userService.updateUser(id, userDetails);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @GetMapping("/{id}")
@@ -65,4 +64,22 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping("/search/username/{username}")
+    public User getUserByUsername(@PathVariable @NotNull String username) {
+        logger.info("Fetching user with username: {}", username);
+        return userService.findUserByUsername(username);
+    }
+
+    @GetMapping("/search/email/{email}")
+    public User getUserByEmail(@PathVariable @NotNull String email) {
+        logger.info("Fetching user with email: {}", email);
+        return userService.findUserByEmail(email);
+    }
+
+    @GetMapping("/count")
+    public int countUsers() {
+        logger.info("Counting all users");
+        Integer userCount = userService.countUsers();
+        return userCount;
+    }
 }

@@ -2,7 +2,7 @@ package com.example.springbootchapter;
 
 import com.example.springbootchapter.model.User;
 import com.example.springbootchapter.repository.UserRepository;
-import com.example.springbootchapter.service.UserServiceImpl;
+import com.example.springbootchapter.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +20,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @InjectMocks
-    private UserServiceImpl userServiceImpl;
+    private UserService userServiceImpl;
 
 
     @Test
