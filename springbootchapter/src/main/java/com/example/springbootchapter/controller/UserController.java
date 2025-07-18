@@ -82,5 +82,4 @@ public class UserController {
         Integer userCount = userService.countUsers();
         return userCount;
     }
-
 }
