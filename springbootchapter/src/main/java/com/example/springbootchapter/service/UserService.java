@@ -36,15 +36,6 @@ public class UserService {
     public User updateUser(Long id, User userDetails) {
         User user = getUserById(id);
 
-        if (userRepository.findByUsername(userDetails.getUsername()) != null &&
-            !user.getUsername().equals(userDetails.getUsername())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
-        }
-
-        if (userRepository.findByEmail(userDetails.getEmail()) != null &&
-            !user.getEmail().equals(userDetails.getEmail())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
-        }
 
         user.setUsername(userDetails.getUsername());
         user.setEmail(userDetails.getEmail());
