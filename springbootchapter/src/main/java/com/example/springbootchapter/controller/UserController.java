@@ -76,4 +76,11 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
 
+    @GetMapping("/count")
+    public int countUsers() {
+        logger.info("Counting all users");
+        Integer userCount = userService.countUsers();
+        return userCount;
+    }
+
 }

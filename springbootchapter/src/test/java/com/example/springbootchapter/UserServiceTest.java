@@ -8,12 +8,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class UserServiceTest {
 
     @Mock
@@ -25,14 +28,23 @@ public class UserServiceTest {
 
     @Test
     void shouldReturnAllUsers() {
-        List<User> mockUsers = List.of(new User(1L, "Alice"));
+        User alice = new User(
+                1L,
+                "alice",
+                "alice@gmail.com",
+                "12345678",
+                "Alice",
+                "Wonderland"
+        );
+
+        List<User> mockUsers = List.of(alice);
         when(userRepository.findAll()).thenReturn(mockUsers);
 
         List<User> result = userServiceImpl.getAllUsers();
 
         assertEquals(1, result.size());
-        assertEquals("Alice", result.get(0).getName());
-
+        assertEquals("alice", result.get(0).getUsername());
     }
+
 
 }
