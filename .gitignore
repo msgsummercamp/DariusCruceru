@@ -17,6 +17,8 @@ out/
 # Logs
 *.log
 
+.env
+
 # Eclipse
 .project
 .classpath

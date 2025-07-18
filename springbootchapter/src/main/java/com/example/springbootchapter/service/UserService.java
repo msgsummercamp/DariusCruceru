@@ -23,12 +23,7 @@ public class UserService {
         if (user.getId() != null) {
             throw new IllegalArgumentException("ID must be null when creating a new user");
         }
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
-        }
-        if (userRepository.findByEmail(user.getEmail()) != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
-        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
