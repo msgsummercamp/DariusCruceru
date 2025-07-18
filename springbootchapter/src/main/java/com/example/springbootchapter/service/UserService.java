@@ -74,6 +74,7 @@ public class UserService {
 
     public int countUsers() {
         return userRepository.countUsers();
+
     }
 
 
