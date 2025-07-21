@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Tag(name = "User API", description = "Operations related to users")
-@RequestMapping("/api/users")
+@RequestMapping("/api/")
 @RestController
 public class UserController {
     @Autowired
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @Operation(summary = "Retrieves a paginated list of users")
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -85,9 +85,19 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "redirect:/api/users";
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin")
+    public ResponseEntity<String> helloAdmin() {
+        return ResponseEntity.ok("Hello Admin");
     }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user")
+    public ResponseEntity<String> helloUser() {
+        return ResponseEntity.ok("Hello User");
+    }
+
+
 
 }
