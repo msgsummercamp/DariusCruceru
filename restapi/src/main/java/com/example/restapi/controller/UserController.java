@@ -1,6 +1,7 @@
 package com.example.restapi.controller;
 
 import com.example.restapi.model.User;
+import com.example.restapi.service.IUserService;
 import com.example.restapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,11 +25,11 @@ import java.util.Map;
 @RestController
 public class UserController {
     @Autowired
-    private final UserService userService;
+    private final IUserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public UserController(UserService userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
