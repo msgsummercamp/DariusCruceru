@@ -1,19 +1,12 @@
+// src/main/java/com/example/restapi/model/User.java
 package com.example.restapi.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.util.Set;
+import lombok.*;
 
 @Entity
 @Getter
-@Schema(description = "User entity")
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,16 +17,12 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Name cannot be blank")
     private String username;
 
     @Column(nullable = false, unique = true)
-    @Email(message = "Invalid email format")
-    @NotBlank(message = "Email is required")
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
     @Column(name = "firstname")
@@ -41,4 +30,12 @@ public class User {
 
     @Column(name = "lastname")
     private String lastName;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 }

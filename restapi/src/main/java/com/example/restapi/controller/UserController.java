@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,8 +66,9 @@ public class UserController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Deletes a user by ID")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable @NotNull Long id) {
         logger.info("Deleting user with id: {}", id);
         userService.deleteUser(id);
@@ -81,6 +83,11 @@ public class UserController {
             @RequestBody Map<String, Object> updates) {
         User updatedUser = userService.updatePartialUser(id, updates);
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/api/users";
     }
 
 }
