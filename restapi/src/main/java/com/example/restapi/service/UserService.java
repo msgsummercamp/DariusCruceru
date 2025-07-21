@@ -1,20 +1,15 @@
 package com.example.restapi.service;
 
-import com.example.restapi.model.Role;
 import com.example.restapi.model.User;
-import com.example.restapi.repository.RoleRepository;
 import com.example.restapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 public class UserService implements IUserService {
@@ -23,23 +18,16 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
 
     @Autowired
-    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByName("ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("Default role not found"));
-        user.setRoles(new HashSet<>(Set.of(userRole)));
         return userRepository.save(user);
     }
 
@@ -82,7 +70,7 @@ public class UserService implements IUserService {
             switch (key) {
                 case "username" -> user.setUsername((String) value);
                 case "email" -> user.setEmail((String) value);
-                case "password" -> user.setPassword((String) value);
+                case "password" -> user.setPassword(passwordEncoder.encode((String) value));
                 case "firstName" -> user.setFirstName((String) value);
                 case "lastName" -> user.setLastName((String) value);
             }
