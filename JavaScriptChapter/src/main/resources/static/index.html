@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doggo's</title>
+  </head>
+  <body>
+    <div>
+      <h1>Random Dog Gallery</h1>
+      <button onclick="getDogImage()">Show me a dog!</button>
+      <div id="loading" style="display: none">
+        <p>Loading a boss dog...</p>
+      </div>
+      <div id="error" style="display: none;color: red;">
+        <p>Oops! Something went wrong. Please try again.</p>
+      </div>
+      <img id="dogImage" src="" alt="Random dog" style="display: none;">
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
