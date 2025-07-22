@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doggo's</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div>
       <h1>Random Dog Gallery</h1>
       <button onclick="getDogImage()">Show me a dog!</button>
-      <div id="loading" style="display: none">
+      <div id="loading">
         <p>Loading a boss dog...</p>
       </div>
-      <div id="error" style="display: none;color: red;">
+      <div id="error">
         <p>Oops! Something went wrong. Please try one more time.</p>
       </div>
-      <img id="dogImage" src="" alt="Random dog" style="display: none;">
+      <img id="dogImage" src="" alt="Random dog" />
     </div>
     <script src="script.js"></script>
   </body>
