@@ -21,7 +21,7 @@ async function getDogImage(){
         
         
         if (data.status !== "success") {
-            throw new Error("API returned error status");
+            throw new Error("API returned an error");
         }
         
        
