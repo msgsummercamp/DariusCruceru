@@ -25,7 +25,7 @@ async function getDogImage(): Promise<void> {
     );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Http error! status: ${response.status}`);
     }
 
     const data: DogApiResponse = await response.json();
