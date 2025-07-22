@@ -1,0 +1,14 @@
+#loading {
+  display: none;
+  color: blue;
+}
+
+#error {
+  display: none;
+  color: red;
+}
+
+#dogImage {
+  display: none;
+}
+    
