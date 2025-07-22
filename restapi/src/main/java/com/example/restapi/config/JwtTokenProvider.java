@@ -15,15 +15,15 @@ import java.util.Base64;
 import java.util.Date;
 
 
-
 @Component
 public class JwtTokenProvider {
 
 
-    private String jwtSecret = generateSecretKey();
-
     @Value("${jwtExpirationDate}")
     private long jwtExpirationDate;
+
+    @Value("${jwtSecret}")
+    private String jwtSecret;
 
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
@@ -52,8 +52,8 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    // validate JWT token
-    public boolean validateToken(String token){
+
+    public boolean validateToken(String token) {
         Jwts.parser()
                 .verifyWith((SecretKey) key())
                 .build()
@@ -62,17 +62,5 @@ public class JwtTokenProvider {
 
     }
 
-    public String generateSecretKey() {
-
-        int length = 32;
-
-        SecureRandom secureRandom = new SecureRandom();
-
-        byte[] keyBytes = new byte[length];
-
-        secureRandom.nextBytes(keyBytes);
-
-        return Base64.getEncoder().encodeToString(keyBytes);
-    }
 
 }
