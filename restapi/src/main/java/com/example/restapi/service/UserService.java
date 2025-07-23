@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class UserService implements IUserService {
+public class UserService{
 
     @Autowired
     private final UserRepository userRepository;
@@ -25,24 +25,24 @@ public class UserService implements IUserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
+
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    @Override
+
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    @Override
+
     public Page<User> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
 
-    @Override
+
     public User updateUser(Long id, User userDetails) {
         User user = getUserById(id);
 
@@ -56,13 +56,13 @@ public class UserService implements IUserService {
         return userRepository.save(user);
     }
 
-    @Override
+
     public void deleteUser(Long id) {
         User user = getUserById(id);
         userRepository.delete(user);
     }
 
-    @Override
+
     public User updatePartialUser(Long id, Map<String, Object> updates) {
         User user = getUserById(id);
 

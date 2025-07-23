@@ -1,7 +1,6 @@
 package com.example.restapi.controller;
 
 import com.example.restapi.model.User;
-import com.example.restapi.service.IUserService;
 import com.example.restapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,26 +14,27 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @Tag(name = "User API", description = "Operations related to users")
-@RequestMapping("/api/users")
+@RequestMapping("/api/")
 @RestController
 public class UserController {
     @Autowired
-    private final IUserService userService;
+    private final UserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public UserController(IUserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @Operation(summary = "Retrieves a paginated list of users")
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -65,6 +65,7 @@ public class UserController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Deletes a user by ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable @NotNull Long id) {
@@ -82,5 +83,20 @@ public class UserController {
         User updatedUser = userService.updatePartialUser(id, updates);
         return ResponseEntity.ok(updatedUser);
     }
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin")
+    public ResponseEntity<String> helloAdmin() {
+        return ResponseEntity.ok("Hello Admin");
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user")
+    public ResponseEntity<String> helloUser() {
+        return ResponseEntity.ok("Hello User");
+    }
+
+
 
 }
