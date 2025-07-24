@@ -1,0 +1,4 @@
+<button (click)="getDogImage()" mat-raised-button> Fetch Dog Image </button>
+@if (DogImageValue){
+  <img [src]="DogImageValue" alt="Dog Image"/>
+}
