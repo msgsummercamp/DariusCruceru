@@ -1,16 +1,15 @@
 <mat-toolbar>
   <mat-toolbar-row>
     <span>My Application</span>
-    <a>
-      <app-button> About</app-button>
-    </a>
-    <a>
-      <app-button> Support</app-button>
-    </a>
-    <a>
-      <app-button> Contact</app-button>
-    </a>
-
+      <a routerLink="/home" routerLinkActive="active-link">
+          <button mat-button> Home </button>
+      </a>
+      <a routerLink="/login" routerLinkActive="active-link">
+          <button mat-button> Login </button>
+      </a>
+      <a routerLink="/page-not-found" routerLinkActive="active-link">
+          <button mat-button> PageNotFound </button>
+      </a>
     <span class="example-spacer"></span>
     <a>
       <button mat-mini-fab>
@@ -22,6 +21,5 @@
         <mat-icon>menu</mat-icon>
       </button>
     </a>
-
   </mat-toolbar-row>
 </mat-toolbar>
