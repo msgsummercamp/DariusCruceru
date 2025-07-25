@@ -1,0 +1,40 @@
+/* src/app/page-not-found/page-not-found.component.scss */
+.wild-page-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  color: #2d3748;
+  text-align: center;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: #ef4444;
+    text-shadow: 2px 2px 0 #fff;
+  }
+
+  p {
+    font-size: 1.3rem;
+    margin-bottom: 1em;
+  }
+
+  button {
+    margin-top: 1.5em;
+    padding: 0.7em 2em;
+    font-size: 1.1rem;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.15);
+    transition: background 0.2s;
+    &:hover {
+      background: #4338ca;
+    }
+  }
+}
