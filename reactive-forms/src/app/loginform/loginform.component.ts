@@ -1,5 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatFormFieldModule, MatLabel, MatError} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 interface LoginForm {
   email: FormControl<string>;
@@ -8,7 +10,7 @@ interface LoginForm {
 
 @Component({
   selector: 'app-loginform',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatLabel, MatError, MatInput],
   templateUrl: './loginform.component.html',
   styleUrl: './loginform.component.scss'
 })
@@ -22,11 +24,7 @@ export class LoginformComponent {
 
   onFormSubmit(): void {
     if (this.loginFormGroup.valid) {
-      console.log('getRawValue()', this.loginFormGroup.getRawValue());
-      console.log('value', this.loginFormGroup.value);
-    } else {
-
+      const formData = this.loginFormGroup.value;
     }
-    this.loginFormGroup.markAllAsTouched();
   }
 }

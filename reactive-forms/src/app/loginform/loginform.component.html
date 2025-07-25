@@ -1,21 +1,24 @@
 <form novalidate [formGroup]="loginFormGroup" (ngSubmit)="onFormSubmit()">
-  <label for="email">Email:</label>
-  <input type="email" id="email" formControlName="email">
+  <mat-form-field>
+    <mat-label>Email:</mat-label>
+    <input matInput type="email" id="email" formControlName="email">
 
-  @if (loginFormGroup.controls.email.invalid && loginFormGroup.controls.email.touched) {
-    <small class="text-error">Email is required</small>
-  }
-
-  <label for="password">Password:</label>
-  <input type="password" id="password" formControlName="password">
-
-  @if (loginFormGroup.controls.password.invalid && loginFormGroup.controls.password.touched) {
-    @if (loginFormGroup.controls.password.errors?.['required']) {
-      <small class="text-error">Password is required</small>
-    } @else if (loginFormGroup.controls.password.errors?.['minlength']) {
-      <small class="text-error">Password must be at least 6 characters</small>
+    @if (loginFormGroup.controls.email.invalid && loginFormGroup.controls.email.touched) {
+      <mat-error>Email is required</mat-error>
     }
-  }
+  </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Password:</mat-label>
+    <input matInput type="password" id="password" formControlName="password">
+
+    @if (loginFormGroup.controls.password.touched) {
+      @if (loginFormGroup.controls.password.hasError('required')) {
+        <mat-error>Password is required</mat-error>
+      } @else if (loginFormGroup.controls.password.hasError('minlength')) {
+        <mat-error>Password must be at least 6 characters</mat-error>
+      }
+    }
+  </mat-form-field>
   <button type="submit" [disabled]="loginFormGroup.invalid">Submit</button>
 </form>
