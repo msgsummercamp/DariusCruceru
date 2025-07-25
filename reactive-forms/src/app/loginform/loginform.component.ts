@@ -18,8 +18,14 @@ export class LoginformComponent {
   private readonly _formBuilder = inject(NonNullableFormBuilder);
 
   protected readonly loginFormGroup = this._formBuilder.group<LoginForm>({
-    email: this._formBuilder.control('', [Validators.required, Validators.email]),
-    password: this._formBuilder.control('', [Validators.required, Validators.minLength(6)]),
+    email: this._formBuilder.control('', {
+      validators: [Validators.required, Validators.email],
+      updateOn: 'blur'
+    }),
+    password: this._formBuilder.control('', {
+      validators: [Validators.required, Validators.minLength(6)],
+      updateOn: 'blur'
+    }),
   });
 
   onFormSubmit(): void {
