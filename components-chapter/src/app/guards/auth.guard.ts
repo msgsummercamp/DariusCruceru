@@ -9,10 +9,5 @@ export const authGuard: CanActivateFn = (route, state) => {
   if(authService.isAuthenticated()) {
     return true;
   }
-
   return new RedirectCommand(router.parseUrl('login'))
-
-
-
-  return true;
 };

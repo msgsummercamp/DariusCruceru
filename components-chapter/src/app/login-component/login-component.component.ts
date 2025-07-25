@@ -26,7 +26,7 @@ export class LoginComponent {
   login() {
     if (this.username && this.password) {
       console.log('Login attempt with:', this.username);
-      // Add your authentication logic here
+
     }
   }
 }
